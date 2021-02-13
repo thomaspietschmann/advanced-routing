@@ -19,6 +19,7 @@ num_of_restaurants.times do
     name: Faker::Restaurant.name,
     address: Faker::Address.street_address,
     rating: rand(1..5),
+    chef_name: ["Gino", "Tiro", "Shivo", "Laurie", "Strodey"].sample,
   )
   puts "Restaurant with id #{restaurant.id} created"
 end

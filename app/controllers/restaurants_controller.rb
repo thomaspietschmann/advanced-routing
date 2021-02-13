@@ -6,6 +6,10 @@ class RestaurantsController < ApplicationController
     @restaurants = Restaurant.all
   end
 
+  def top
+    @restaurants = Restaurant.where(rating: 5)
+  end
+
   # GET /restaurants/1
   def show
   end
@@ -24,7 +28,7 @@ class RestaurantsController < ApplicationController
     @restaurant = Restaurant.new(restaurant_params)
 
     if @restaurant.save
-      redirect_to @restaurant, notice: 'Restaurant was successfully created.'
+      redirect_to @restaurant, notice: "Restaurant was successfully created."
     else
       render :new
     end
@@ -33,7 +37,7 @@ class RestaurantsController < ApplicationController
   # PATCH/PUT /restaurants/1
   def update
     if @restaurant.update(restaurant_params)
-      redirect_to @restaurant, notice: 'Restaurant was successfully updated.'
+      redirect_to @restaurant, notice: "Restaurant was successfully updated."
     else
       render :edit
     end
@@ -42,17 +46,18 @@ class RestaurantsController < ApplicationController
   # DELETE /restaurants/1
   def destroy
     @restaurant.destroy
-    redirect_to restaurants_url, notice: 'Restaurant was successfully destroyed.'
+    redirect_to restaurants_url, notice: "Restaurant was successfully destroyed."
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_restaurant
-      @restaurant = Restaurant.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def restaurant_params
-      params.require(:restaurant).permit(:name, :address, :rating)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_restaurant
+    @restaurant = Restaurant.find(params[:id])
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def restaurant_params
+    params.require(:restaurant).permit(:name, :address, :rating)
+  end
 end
